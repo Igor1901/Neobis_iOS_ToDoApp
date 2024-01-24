@@ -53,6 +53,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="pencil.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="editPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PCX-2v-H1I"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -102,7 +105,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZR-jB-maS">
                                 <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="JWG-NV-wOj">
+                                    <navigationItem title="Task" id="JWG-NV-wOj">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zbz-Gd-KdZ">
                                             <color key="tintColor" systemColor="systemRedColor"/>
                                             <connections>

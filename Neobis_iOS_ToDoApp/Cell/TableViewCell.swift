@@ -21,6 +21,8 @@ class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var isDone: UIButton!
     
+    var isEditingMode = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -37,6 +39,12 @@ class TableViewCell: UITableViewCell {
         doneTask = isDone
 
     }
+    func setEditingMode(_ isEditing: Bool) {
+        isEditingMode = isEditing
+        //infoImage.isHidden = isEditing
+        //arrowImage.isHidden = isEditing
+    }
+    
 
     @IBAction func donePressed(_ sender: Any) {
         let newImage = UIImage(systemName: doneTask ? "circle" : "checkmark.circle")
