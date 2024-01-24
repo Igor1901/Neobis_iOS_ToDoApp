@@ -36,6 +36,8 @@ class TableViewController: UIViewController {
     override func viewIsAppearing(_ animated: Bool) {
         tableView.reloadData()
     }
+    
+    // button to change cells and delete
     @IBAction func editPressed(_ sender: Any) {
         tableView.isEditing = !isEditingMode
             let imageName = isEditingMode ? "pencil.circle.fill" : "x.circle.fill"
@@ -50,7 +52,7 @@ class TableViewController: UIViewController {
             isEditingMode.toggle()
     }
     
-    
+    // button to go to screen 2 to create tasks
     @IBAction func presentModalController(_ sender: UIButton) {
         let modalController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
 
@@ -62,21 +64,22 @@ class TableViewController: UIViewController {
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate, TaskCellDelegate {
+    // I only have one section
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    // checking the number of cells
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataManager.getCount()
     }
-    
+    // Adding data to a cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.id, for: indexPath) as! TableViewCell
         cell.delegate = self
         cell.configureCell(title: dataManager.tasks[indexPath.row].title, descriptionText: dataManager.tasks[indexPath.row].description, isDone: dataManager.tasks[indexPath.row].isDone, image: (dataManager.tasks[indexPath.row].isDone ? "checkmark.circle" : "circle"))
         return cell
     }
-    
+    // clicking on a cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         isNew = false
         
@@ -102,19 +105,20 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate, TaskC
     }
 
     
-    
+    // Remove separato line
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataManager.tasks.count - 1 {
             cell.separatorInset.left = cell.bounds.size.width
         }
     }
+    //for move
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         dataManager.moveTask(from: sourceIndexPath.row, into: destinationIndexPath.row)
     }
-    
+    // for Delete
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
             self?.handleDeleteAction(at: indexPath)
